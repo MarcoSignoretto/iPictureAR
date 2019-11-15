@@ -31,6 +31,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         
         print("\(OpenCVWrapper.openCVVersionString())")
+        print("\(IPictureARWrapper.myPrintNative())")
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

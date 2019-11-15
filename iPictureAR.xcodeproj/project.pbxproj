@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		A968AAF9237EE75B0078AB1A /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = A968AAF8237EE75B0078AB1A /* OpenCVWrapper.mm */; };
+		A968AB00237EECC90078AB1A /* iPictureARWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = A968AAFF237EECC90078AB1A /* iPictureARWrapper.mm */; };
+		A968AB0B237EF02E0078AB1A /* Matcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A968AB02237EF02D0078AB1A /* Matcher.cpp */; };
+		A968AB0C237EF02E0078AB1A /* marker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A968AB06237EF02E0078AB1A /* marker.cpp */; };
+		A968AB0D237EF02E0078AB1A /* boundary_extractor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A968AB07237EF02E0078AB1A /* boundary_extractor.cpp */; };
+		A968AB0E237EF02E0078AB1A /* boundary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A968AB08237EF02E0078AB1A /* boundary.cpp */; };
+		A968AB0F237EF02E0078AB1A /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A968AB0A237EF02E0078AB1A /* utils.cpp */; };
 		A99D57682359F45D00A8AAF9 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A99D57672359F45D00A8AAF9 /* opencv2.framework */; };
 		A9EEB8DC2359F3B3008B6A94 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9EEB8DB2359F3B3008B6A94 /* AppDelegate.swift */; };
 		A9EEB8DE2359F3B3008B6A94 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9EEB8DD2359F3B3008B6A94 /* SceneDelegate.swift */; };
@@ -22,6 +28,18 @@
 		A968AAF7237EE75B0078AB1A /* OpenCVWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OpenCVWrapper.h; path = iPictureAR/OpenCVWrapper.h; sourceTree = "<group>"; };
 		A968AAF8237EE75B0078AB1A /* OpenCVWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = OpenCVWrapper.mm; path = iPictureAR/OpenCVWrapper.mm; sourceTree = "<group>"; };
 		A968AAFA237EE7FC0078AB1A /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		A968AAFE237EECC90078AB1A /* IPictureARWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IPictureARWrapper.h; sourceTree = "<group>"; };
+		A968AAFF237EECC90078AB1A /* iPictureARWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = iPictureARWrapper.mm; sourceTree = "<group>"; };
+		A968AB01237EF02D0078AB1A /* boundary_extractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = boundary_extractor.h; sourceTree = "<group>"; };
+		A968AB02237EF02D0078AB1A /* Matcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Matcher.cpp; sourceTree = "<group>"; };
+		A968AB03237EF02D0078AB1A /* boundary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = boundary.h; sourceTree = "<group>"; };
+		A968AB04237EF02D0078AB1A /* marker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = marker.h; sourceTree = "<group>"; };
+		A968AB05237EF02D0078AB1A /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
+		A968AB06237EF02E0078AB1A /* marker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = marker.cpp; sourceTree = "<group>"; };
+		A968AB07237EF02E0078AB1A /* boundary_extractor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = boundary_extractor.cpp; sourceTree = "<group>"; };
+		A968AB08237EF02E0078AB1A /* boundary.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = boundary.cpp; sourceTree = "<group>"; };
+		A968AB09237EF02E0078AB1A /* Matcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Matcher.h; sourceTree = "<group>"; };
+		A968AB0A237EF02E0078AB1A /* utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utils.cpp; sourceTree = "<group>"; };
 		A99D57672359F45D00A8AAF9 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		A9EEB8D82359F3B3008B6A94 /* iPictureAR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iPictureAR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9EEB8DB2359F3B3008B6A94 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -48,8 +66,20 @@
 		A9EEB8CF2359F3B3008B6A94 = {
 			isa = PBXGroup;
 			children = (
+				A968AB08237EF02E0078AB1A /* boundary.cpp */,
+				A968AB03237EF02D0078AB1A /* boundary.h */,
+				A968AB06237EF02E0078AB1A /* marker.cpp */,
+				A968AB04237EF02D0078AB1A /* marker.h */,
+				A968AB07237EF02E0078AB1A /* boundary_extractor.cpp */,
+				A968AB01237EF02D0078AB1A /* boundary_extractor.h */,
+				A968AB02237EF02D0078AB1A /* Matcher.cpp */,
+				A968AB09237EF02E0078AB1A /* Matcher.h */,
+				A968AB0A237EF02E0078AB1A /* utils.cpp */,
+				A968AB05237EF02D0078AB1A /* utils.h */,
 				A968AAF7237EE75B0078AB1A /* OpenCVWrapper.h */,
 				A968AAF8237EE75B0078AB1A /* OpenCVWrapper.mm */,
+				A968AAFE237EECC90078AB1A /* IPictureARWrapper.h */,
+				A968AAFF237EECC90078AB1A /* iPictureARWrapper.mm */,
 				A968AAFA237EE7FC0078AB1A /* PrefixHeader.pch */,
 				A9EEB8DA2359F3B3008B6A94 /* iPictureAR */,
 				A9EEB8D92359F3B3008B6A94 /* Products */,
@@ -161,9 +191,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				A9EEB8DC2359F3B3008B6A94 /* AppDelegate.swift in Sources */,
+				A968AB0B237EF02E0078AB1A /* Matcher.cpp in Sources */,
+				A968AB0E237EF02E0078AB1A /* boundary.cpp in Sources */,
 				A9EEB8DE2359F3B3008B6A94 /* SceneDelegate.swift in Sources */,
 				A968AAF9237EE75B0078AB1A /* OpenCVWrapper.mm in Sources */,
+				A968AB0F237EF02E0078AB1A /* utils.cpp in Sources */,
+				A968AB0D237EF02E0078AB1A /* boundary_extractor.cpp in Sources */,
+				A968AB0C237EF02E0078AB1A /* marker.cpp in Sources */,
 				A9EEB8E02359F3B3008B6A94 /* ContentView.swift in Sources */,
+				A968AB00237EECC90078AB1A /* iPictureARWrapper.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

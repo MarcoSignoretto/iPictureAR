@@ -3,3 +3,4 @@
 //
 
 #import "OpenCVWrapper.h"
+#import "IPictureARWrapper.h"
