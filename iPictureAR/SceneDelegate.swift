@@ -29,6 +29,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             self.window = window
             window.makeKeyAndVisible()
         }
+        
+        print("\(OpenCVWrapper.openCVVersionString())")
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
