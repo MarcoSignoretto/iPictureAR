@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A95A80BF2380525400F775FC /* FrameExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95A80BE2380525400F775FC /* FrameExtractor.swift */; };
 		A968AAF9237EE75B0078AB1A /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = A968AAF8237EE75B0078AB1A /* OpenCVWrapper.mm */; };
 		A968AB00237EECC90078AB1A /* iPictureARWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = A968AAFF237EECC90078AB1A /* iPictureARWrapper.mm */; };
 		A968AB0B237EF02E0078AB1A /* Matcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A968AB02237EF02D0078AB1A /* Matcher.cpp */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A95A80BE2380525400F775FC /* FrameExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameExtractor.swift; sourceTree = "<group>"; };
 		A968AAF6237EE75A0078AB1A /* iPictureAR-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iPictureAR-Bridging-Header.h"; sourceTree = "<group>"; };
 		A968AAF7237EE75B0078AB1A /* OpenCVWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OpenCVWrapper.h; path = iPictureAR/OpenCVWrapper.h; sourceTree = "<group>"; };
 		A968AAF8237EE75B0078AB1A /* OpenCVWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = OpenCVWrapper.mm; path = iPictureAR/OpenCVWrapper.mm; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				A9EEB8E62359F3B4008B6A94 /* LaunchScreen.storyboard */,
 				A9EEB8E92359F3B4008B6A94 /* Info.plist */,
 				A9EEB8E32359F3B4008B6A94 /* Preview Content */,
+				A95A80BE2380525400F775FC /* FrameExtractor.swift */,
 			);
 			path = iPictureAR;
 			sourceTree = "<group>";
@@ -197,6 +200,7 @@
 				A968AAF9237EE75B0078AB1A /* OpenCVWrapper.mm in Sources */,
 				A968AB0F237EF02E0078AB1A /* utils.cpp in Sources */,
 				A968AB0D237EF02E0078AB1A /* boundary_extractor.cpp in Sources */,
+				A95A80BF2380525400F775FC /* FrameExtractor.swift in Sources */,
 				A968AB0C237EF02E0078AB1A /* marker.cpp in Sources */,
 				A9EEB8E02359F3B3008B6A94 /* ContentView.swift in Sources */,
 				A968AB00237EECC90078AB1A /* iPictureARWrapper.mm in Sources */,
@@ -338,6 +342,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"iPictureAR/Preview Content\"";
 				DEVELOPMENT_TEAM = 8D9983J584;
@@ -353,6 +358,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.marcosignoretto.iPictureAR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "iPictureAR-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -365,6 +371,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"iPictureAR/Preview Content\"";
 				DEVELOPMENT_TEAM = 8D9983J584;
@@ -380,6 +387,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.marcosignoretto.iPictureAR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "iPictureAR-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
