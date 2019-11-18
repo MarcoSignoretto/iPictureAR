@@ -16,6 +16,8 @@
 		A968AB0E237EF02E0078AB1A /* boundary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A968AB08237EF02E0078AB1A /* boundary.cpp */; };
 		A968AB0F237EF02E0078AB1A /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A968AB0A237EF02E0078AB1A /* utils.cpp */; };
 		A99D57682359F45D00A8AAF9 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A99D57672359F45D00A8AAF9 /* opencv2.framework */; };
+		A9C8D232238306E400B619CC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C8D231238306E400B619CC /* ViewController.swift */; };
+		A9C8D234238307CC00B619CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A9C8D233238307CB00B619CC /* Main.storyboard */; };
 		A9EEB8DC2359F3B3008B6A94 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9EEB8DB2359F3B3008B6A94 /* AppDelegate.swift */; };
 		A9EEB8DE2359F3B3008B6A94 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9EEB8DD2359F3B3008B6A94 /* SceneDelegate.swift */; };
 		A9EEB8E02359F3B3008B6A94 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9EEB8DF2359F3B3008B6A94 /* ContentView.swift */; };
@@ -43,6 +45,8 @@
 		A968AB09237EF02E0078AB1A /* Matcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Matcher.h; sourceTree = "<group>"; };
 		A968AB0A237EF02E0078AB1A /* utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utils.cpp; sourceTree = "<group>"; };
 		A99D57672359F45D00A8AAF9 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
+		A9C8D231238306E400B619CC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		A9C8D233238307CB00B619CC /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		A9EEB8D82359F3B3008B6A94 /* iPictureAR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iPictureAR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9EEB8DB2359F3B3008B6A94 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A9EEB8DD2359F3B3008B6A94 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -68,6 +72,7 @@
 		A9EEB8CF2359F3B3008B6A94 = {
 			isa = PBXGroup;
 			children = (
+				A9C8D231238306E400B619CC /* ViewController.swift */,
 				A968AB08237EF02E0078AB1A /* boundary.cpp */,
 				A968AB03237EF02D0078AB1A /* boundary.h */,
 				A968AB06237EF02E0078AB1A /* marker.cpp */,
@@ -109,6 +114,7 @@
 				A9EEB8E92359F3B4008B6A94 /* Info.plist */,
 				A9EEB8E32359F3B4008B6A94 /* Preview Content */,
 				A95A80BE2380525400F775FC /* FrameExtractor.swift */,
+				A9C8D233238307CB00B619CC /* Main.storyboard */,
 			);
 			path = iPictureAR;
 			sourceTree = "<group>";
@@ -183,6 +189,7 @@
 				A9EEB8E82359F3B4008B6A94 /* LaunchScreen.storyboard in Resources */,
 				A9EEB8E52359F3B4008B6A94 /* Preview Assets.xcassets in Resources */,
 				A9EEB8E22359F3B4008B6A94 /* Assets.xcassets in Resources */,
+				A9C8D234238307CC00B619CC /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -199,6 +206,7 @@
 				A9EEB8DE2359F3B3008B6A94 /* SceneDelegate.swift in Sources */,
 				A968AAF9237EE75B0078AB1A /* OpenCVWrapper.mm in Sources */,
 				A968AB0F237EF02E0078AB1A /* utils.cpp in Sources */,
+				A9C8D232238306E400B619CC /* ViewController.swift in Sources */,
 				A968AB0D237EF02E0078AB1A /* boundary_extractor.cpp in Sources */,
 				A95A80BF2380525400F775FC /* FrameExtractor.swift in Sources */,
 				A968AB0C237EF02E0078AB1A /* marker.cpp in Sources */,

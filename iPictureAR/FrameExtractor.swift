@@ -8,8 +8,14 @@
 
 import Foundation
 import AVFoundation
+import UIKit
+
+protocol FrameExtractorDelegate : class{
+    func captured(image: UIImage)
+}
 
 class FrameExtractor: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate{
+    
     private let captureSession = AVCaptureSession()
     private let sessionQueue = DispatchQueue(label: "session queue")
     
@@ -17,6 +23,10 @@ class FrameExtractor: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate{
     private let quality = AVCaptureSession.Preset.medium
     
     private var permissionGranted = false
+    
+    weak var delegate: FrameExtractorDelegate?
+    
+    private let context = CIContext()
     
     override init() {
         super.init()
@@ -83,5 +93,16 @@ class FrameExtractor: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate{
     
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         print("Got a frame!")
+        guard let uiImage = self.imageFromSampleBuffer(sampleBuffer: sampleBuffer) else { return }
+        DispatchQueue.main.async { [unowned self] in
+            self.delegate?.captured(image: uiImage)
+        }
+    }
+    
+    private func imageFromSampleBuffer(sampleBuffer: CMSampleBuffer) -> UIImage? {
+        guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return nil }
+        let ciImage = CIImage(cvPixelBuffer: imageBuffer)
+        guard let cgImage = context.createCGImage(ciImage, from: ciImage.extent) else { return nil }
+        return UIImage(cgImage: cgImage)
     }
 }

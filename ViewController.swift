@@ -8,10 +8,24 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, FrameExtractorDelegate {
+    @IBOutlet weak var imageView: UIImageView!
+    
+    func captured(image: UIImage) {
+        imageView.image = image
+    }
+    
+    
+    var frameExtractor: FrameExtractor!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.frameExtractor = FrameExtractor()
+        self.frameExtractor.delegate = self
+        
+        
+        print("I'm here!!!!!")
 
         // Do any additional setup after loading the view.
     }
