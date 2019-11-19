@@ -11,8 +11,13 @@ import UIKit
 class ViewController: UIViewController, FrameExtractorDelegate {
     @IBOutlet weak var imageView: UIImageView!
     
+    private var img_0p : UIImage!
+    private var img_1p : UIImage!
+    private var img_0m : UIImage!
+    private var img_1m : UIImage!
+    
     func captured(image: UIImage) {
-        imageView.image = image
+        imageView.image = IPictureARWrapper.applyAR(self.img_0p, and: self.img_1p, and: self.img_0m, and: self.img_1m, frame: image)
     }
     
     
@@ -23,6 +28,12 @@ class ViewController: UIViewController, FrameExtractorDelegate {
         
         self.frameExtractor = FrameExtractor()
         self.frameExtractor.delegate = self
+        
+        self.img_0p = UIImage(named: "img_0p")!
+        self.img_1p = UIImage(named: "img_1p")!
+        self.img_0m = UIImage(named: "img_0m")!
+        self.img_1m = UIImage(named: "img_1m")!
+        
         
         
         print("I'm here!!!!!")
