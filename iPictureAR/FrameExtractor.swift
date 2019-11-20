@@ -20,7 +20,7 @@ class FrameExtractor: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate{
     private let sessionQueue = DispatchQueue(label: "session queue")
     
     private let position = AVCaptureDevice.Position.back
-    private let quality = AVCaptureSession.Preset.medium
+    private let quality = AVCaptureSession.Preset.high
     
     private var permissionGranted = false
     

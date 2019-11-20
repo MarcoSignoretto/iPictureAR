@@ -39,6 +39,15 @@ const cv::Mat cvMatFromUIImage(const UIImage* image){
   return cvMat;
 }
 
+const cv::Mat cvMatFromUIImage(const UIImage* image, const int rows, const int cols){
+    cv::Mat mat = cvMatFromUIImage(image);
+    
+    cv::Mat resized(rows, cols, CV_8UC4); // 8 bits per component, 4 channels (color channels + alpha)
+    cv::resize(mat, resized, cv::Size(cols,rows));
+    return resized;
+}
+
+
 - (cv::Mat)cvMatGrayFromUIImage:(UIImage *)image {
     return cvMatGrayFromUIImage(image);
 }
@@ -63,7 +72,15 @@ const cv::Mat cvMatGrayFromUIImage(const UIImage * image) {
   CGContextRelease(contextRef);
 
   return cvMat;
- }
+}
+
+const cv::Mat cvMatGrayFromUIImage(const UIImage * image, const int rows, const int cols) {
+    cv::Mat mat = cvMatGrayFromUIImage(image);
+    
+    cv::Mat resized(rows, cols, CV_8UC1); // 8 bits per component, 1 channels
+    cv::resize(mat, resized, cv::Size(cols,rows));
+    return resized;
+}
 
 -(UIImage *)UIImageFromCVMat:(cv::Mat)cvMat {
     return UIImageFromCVMat(cvMat);
@@ -114,23 +131,26 @@ UIImage * UIImageFromCVMat(cv::Mat& cvMat){
 
 + (UIImage *) applyAR:(UIImage *)img_0p And:(UIImage *)img_1p And:(UIImage *)img_0m And:(UIImage *)img_1m frame:(UIImage *)frame {
     
-    cv::Mat img_0p_ = cvMatFromUIImage(img_0p);
-    cv::Mat img_1p_ = cvMatFromUIImage(img_1p);
-    cv::Mat img_0m_th = cvMatGrayFromUIImage(img_0m);
-    cv::Mat img_1m_th = cvMatGrayFromUIImage(img_1m);
+    cv::Mat img_0p_ = cvMatFromUIImage(img_0p, 256, 256);
+    cv::Mat img_1p_ = cvMatFromUIImage(img_1p, 256, 256);
+    cv::Mat img_0m_th = cvMatGrayFromUIImage(img_0m, 256, 256);
+    cv::Mat img_1m_th = cvMatGrayFromUIImage(img_1m, 256, 256);
     
-    cv::Mat frame_ = cvMatFromUIImage(frame);
+    cv::Mat frame_ = cvMatFromUIImage(frame, 480, 640);
+    
+//    cv::Mat resized_frame_(480, 640, CV_8UC4); // 8 bits per component, 4 channels (color channels + alpha)
+//    cv::resize(frame_, resized_frame_, cv::Size(640,480));
     
     const mcv::Matcher matcher{
         std::vector<const cv::Mat*>{&img_0m_th, &img_1m_th},
         std::vector<const cv::Mat*>{&img_0p_, &img_1p_}
     };
     
-//    try {
+    try {
 //        mcv::marker::apply_AR(matcher, frame_, false);
-//    } catch (const cv::Exception &e) {
-//        // TODO report here somehow
-//    }
+    } catch (const cv::Exception &e) {
+        // TODO report here somehow
+    }
 //    std::cout << img_0m_th.rows << std::endl;
 //    std::cout << img_0m_th.cols << std::endl;
     return UIImageFromCVMat(frame_); // TODO apply AR here
