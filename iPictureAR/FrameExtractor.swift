@@ -20,7 +20,7 @@ class FrameExtractor: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate{
     private let sessionQueue = DispatchQueue(label: "session queue")
     
     private let position = AVCaptureDevice.Position.back
-    private let quality = AVCaptureSession.Preset.high
+    private let quality = AVCaptureSession.Preset.vga640x480 // This has to be fixed for iPictureAR
     
     private var permissionGranted = false
     
@@ -94,9 +94,9 @@ class FrameExtractor: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate{
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         print("Got a frame!")
         guard let uiImage = self.imageFromSampleBuffer(sampleBuffer: sampleBuffer) else { return }
-        DispatchQueue.main.async { [unowned self] in
+//        DispatchQueue.main.async { [unowned self] in
             self.delegate?.captured(image: uiImage)
-        }
+//        }
     }
     
     private func imageFromSampleBuffer(sampleBuffer: CMSampleBuffer) -> UIImage? {

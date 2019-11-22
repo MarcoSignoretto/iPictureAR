@@ -29,6 +29,7 @@ const cv::Mat* mcv::Matcher::findBestMatch(const cv::Mat& frame_to_match, const 
     std::vector<float> scores(m_markers.size());
     for(int i=0; i < scores.size(); ++i){
         scores[i] = mcv::marker::compute_matching(*(m_markers[i]), frame_to_match);
+        std::cout << i << "Score: " << scores[i] << std::endl;
     }
 
     int max_index = maxIndex(scores);

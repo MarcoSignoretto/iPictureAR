@@ -114,12 +114,6 @@ void mcv::marker::calculate_picture_rotation(cv::Mat &rotation_matrix, int rotat
 }
 
 float mcv::marker::compute_matching(const cv::Mat &marker_extracted, const cv::Mat &marker_candidate, const cv::Point top_left, const cv::Point bottom_right) {
-
-    std::cout << marker_extracted.rows << std::endl;
-    std::cout << marker_candidate.rows << std::endl;
-    std::cout << marker_extracted.cols << std::endl;
-    std::cout << marker_candidate.cols << std::endl;
-
     assert(marker_extracted.rows == marker_candidate.rows && marker_extracted.cols == marker_candidate.cols && "Dimensions mismatch");
 
     float sum = 0.0f;

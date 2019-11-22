@@ -17,7 +17,10 @@ class ViewController: UIViewController, FrameExtractorDelegate {
     private var img_1m : UIImage!
     
     func captured(image: UIImage) {
-        imageView.image = IPictureARWrapper.applyAR(self.img_0p, and: self.img_1p, and: self.img_0m, and: self.img_1m, frame: image)
+        let img = IPictureARWrapper.applyAR(self.img_0p, and: self.img_1p, and: self.img_0m, and: self.img_1m, frame: image)
+        DispatchQueue.main.async { [unowned self] in
+            self.imageView.image = img
+        }
     }
     
     
