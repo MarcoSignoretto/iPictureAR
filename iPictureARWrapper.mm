@@ -10,6 +10,7 @@
 #import "marker.h"
 #import "utils.h"
 #import <vector>
+#import <opencv2/imgcodecs/ios.h>
 
 @implementation IPictureARWrapper
 
@@ -17,27 +18,30 @@
     return cvMatFromUIImage(image);
 }
 
-const cv::Mat cvMatFromUIImage(const UIImage* image){
-  CGColorSpaceRef colorSpace = CGImageGetColorSpace(image.CGImage);
-  CGFloat cols = image.size.width;
-  CGFloat rows = image.size.height;
-
-  cv::Mat cvMat(rows, cols, CV_8UC4); // 8 bits per component, 4 channels (color channels + alpha)
-
-  CGContextRef contextRef = CGBitmapContextCreate(cvMat.data,                 // Pointer to  data
-                                                 cols,                       // Width of bitmap
-                                                 rows,                       // Height of bitmap
-                                                 8,                          // Bits per component
-                                                 cvMat.step[0],              // Bytes per row
-                                                 colorSpace,                 // Colorspace
-                                                 kCGImageAlphaNoneSkipLast |
-                                                 kCGBitmapByteOrderDefault); // Bitmap info flags
-
-  CGContextDrawImage(contextRef, CGRectMake(0, 0, cols, rows), image.CGImage);
-  CGContextRelease(contextRef);
-
-  return cvMat;
-}
+//const cv::Mat cvMatFromUIImage(const UIImage* image){
+//    CGColorSpaceRef colorSpace = CGImageGetColorSpace(image.CGImage);
+//    CGFloat cols = image.size.width;
+//    CGFloat rows = image.size.height;
+//
+//    cv::Mat cvMat(rows, cols, CV_8UC4); // 8 bits per component, 4 channels (color channels + alpha)
+//
+//    CGContextRef contextRef = CGBitmapContextCreate(cvMat.data,                 // Pointer to  data
+//                                                 cols,                       // Width of bitmap
+//                                                 rows,                       // Height of bitmap
+//                                                 8,                          // Bits per component
+//                                                 cvMat.step[0],              // Bytes per row
+//                                                 colorSpace,                 // Colorspace
+//                                                 kCGImageAlphaNoneSkipLast |
+//                                                 kCGBitmapByteOrderDefault); // Bitmap info flags
+//
+//    CGContextDrawImage(contextRef, CGRectMake(0, 0, cols, rows), image.CGImage);
+//    CGContextRelease(contextRef);
+//
+//    cv::Mat cvMat3;
+//    cv::cvtColor(cvMat, cvMat3, cv::COLOR_BGRA2BGR);
+//
+//  return cvMat3;
+//}
 
 const cv::Mat cvMatFromUIImage(const UIImage* image, const int rows, const int cols){
     cv::Mat mat = cvMatFromUIImage(image);
@@ -86,42 +90,117 @@ const cv::Mat cvMatGrayFromUIImage(const UIImage * image, const int rows, const 
     return UIImageFromCVMat(cvMat);
 }
 
-UIImage * UIImageFromCVMat(cv::Mat& cvMat){
-  NSData *data = [NSData dataWithBytes:cvMat.data length:cvMat.elemSize()*cvMat.total()];
-  CGColorSpaceRef colorSpace;
+UIImage * UIImageFromCVMat(cv::Mat& cvMat) {
+    NSData *data = [NSData dataWithBytes:cvMat.data length:cvMat.elemSize()*cvMat.total()];
 
-  if (cvMat.elemSize() == 1) {
-      colorSpace = CGColorSpaceCreateDeviceGray();
-  } else {
-      colorSpace = CGColorSpaceCreateDeviceRGB();
-  }
+    CGColorSpaceRef colorSpace;
+    CGBitmapInfo bitmapInfo;
 
-  CGDataProviderRef provider = CGDataProviderCreateWithCFData((__bridge CFDataRef)data);
+    if (cvMat.elemSize() == 1) {
+        colorSpace = CGColorSpaceCreateDeviceGray();
+        bitmapInfo = kCGImageAlphaNone | kCGBitmapByteOrderDefault;
+    } else {
+        colorSpace = CGColorSpaceCreateDeviceRGB();
+        // OpenCV defaults to either BGR or ABGR. In CoreGraphics land,
+        // this means using the "32Little" byte order, and potentially
+        // skipping the first pixel. These may need to be adjusted if the
+        // input matrix uses a different pixel format.
+        bitmapInfo = kCGBitmapByteOrder32Little | (
+            cvMat.elemSize() == 3? kCGImageAlphaNone : kCGImageAlphaNoneSkipFirst
+        );
+    }
 
-  // Creating CGImage from cv::Mat
-  CGImageRef imageRef = CGImageCreate(
-     cvMat.cols,                                 //width
-     cvMat.rows,                                 //height
-     8,                                          //bits per component
-     8 * cvMat.elemSize(),                       //bits per pixel
-     cvMat.step[0],                            //bytesPerRow
-     colorSpace,                                 //colorspace
-     kCGImageAlphaNoneSkipLast|kCGBitmapByteOrderDefault,// bitmap info
-     provider,                                   //CGDataProviderRef
-     NULL,                                       //decode
-     false,                                      //should interpolate
-     kCGRenderingIntentDefault                   //intent
-  );
+    CGDataProviderRef provider = CGDataProviderCreateWithCFData((__bridge CFDataRef)data);
 
+    // Creating CGImage from cv::Mat
+    CGImageRef imageRef = CGImageCreate(
+        cvMat.cols,                 //width
+        cvMat.rows,                 //height
+        8,                          //bits per component
+        8 * cvMat.elemSize(),       //bits per pixel
+        cvMat.step[0],              //bytesPerRow
+        colorSpace,                 //colorspace
+        bitmapInfo,                 // bitmap info
+        provider,                   //CGDataProviderRef
+        NULL,                       //decode
+        false,                      //should interpolate
+        kCGRenderingIntentDefault   //intent
+    );
 
-  // Getting UIImage from CGImage
-  UIImage *finalImage = [UIImage imageWithCGImage:imageRef];
-  CGImageRelease(imageRef);
-  CGDataProviderRelease(provider);
-  CGColorSpaceRelease(colorSpace);
+    // Getting UIImage from CGImage
+    UIImage *finalImage = [UIImage imageWithCGImage:imageRef];
+    CGImageRelease(imageRef);
+    CGDataProviderRelease(provider);
+    CGColorSpaceRelease(colorSpace);
 
-  return finalImage;
- }
+    return finalImage;
+}
+
+const cv::Mat cvMatFromUIImage(const UIImage* image){
+    CGColorSpaceRef colorSpace = CGImageGetColorSpace(image.CGImage);
+    size_t numberOfComponents = CGColorSpaceGetNumberOfComponents(colorSpace);
+    CGFloat cols = image.size.width;
+    CGFloat rows = image.size.height;
+
+    cv::Mat cvMat(rows, cols, CV_8UC4); // 8 bits per component, 4 channels
+    CGBitmapInfo bitmapInfo = kCGImageAlphaNoneSkipLast | kCGBitmapByteOrderDefault;
+
+    // check whether the UIImage is greyscale already
+    if (numberOfComponents == 1){
+        cvMat = cv::Mat(rows, cols, CV_8UC1); // 8 bits per component, 1 channels
+        bitmapInfo = kCGImageAlphaNone | kCGBitmapByteOrderDefault;
+    }
+
+    CGContextRef contextRef = CGBitmapContextCreate(cvMat.data,             // Pointer to backing data
+                                                cols,                       // Width of bitmap
+                                                rows,                       // Height of bitmap
+                                                8,                          // Bits per component
+                                                cvMat.step[0],              // Bytes per row
+                                                colorSpace,                 // Colorspace
+                                                bitmapInfo);              // Bitmap info flags
+
+    CGContextDrawImage(contextRef, CGRectMake(0, 0, cols, rows), image.CGImage);
+    CGContextRelease(contextRef);
+
+    return cvMat;
+}
+
+//UIImage * UIImageFromCVMat(cv::Mat& cvMat){
+//  NSData *data = [NSData dataWithBytes:cvMat.data length:cvMat.elemSize()*cvMat.total()];
+//  CGColorSpaceRef colorSpace;
+//
+//  if (cvMat.elemSize() == 1) {
+//      colorSpace = CGColorSpaceCreateDeviceGray();
+//  } else {
+//      colorSpace = CGColorSpaceCreateDeviceRGB();
+//  }
+//
+//  CGDataProviderRef provider = CGDataProviderCreateWithCFData((__bridge CFDataRef)data);
+//
+//  // Creating CGImage from cv::Mat
+//  CGImageRef imageRef = CGImageCreate(
+//     cvMat.cols,                                 //width
+//     cvMat.rows,                                 //height
+//     8,                                          //bits per component
+//     8 * cvMat.elemSize(),                       //bits per pixel
+//     cvMat.step[0],                            //bytesPerRow
+//     colorSpace,                                 //colorspace
+//     kCGImageAlphaNoneSkipLast|kCGBitmapByteOrderDefault,// bitmap info
+//     provider,                                   //CGDataProviderRef
+//     NULL,                                       //decode
+//     false,                                      //should interpolate
+//     kCGRenderingIntentDefault                   //intent
+//  );
+//
+//
+//  // Getting UIImage from CGImage
+//  UIImage *finalImage = [UIImage imageWithCGImage:imageRef];
+//  CGImageRelease(imageRef);
+//  CGDataProviderRelease(provider);
+//  CGColorSpaceRelease(colorSpace);
+//
+//  return finalImage;
+// }
 
 + (NSString *)myPrintNative {
     return @"Hi";
@@ -131,31 +210,38 @@ UIImage * UIImageFromCVMat(cv::Mat& cvMat){
 
 + (UIImage *) applyAR:(UIImage *)img_0p And:(UIImage *)img_1p And:(UIImage *)img_0m And:(UIImage *)img_1m frame:(UIImage *)frame {
     
-    cv::Mat img_0p_ = cvMatFromUIImage(img_0p);
-    cv::Mat img_1p_ = cvMatFromUIImage(img_1p);
-    cv::Mat img_0m_th = cvMatGrayFromUIImage(img_0m);
-    cv::Mat img_1m_th = cvMatGrayFromUIImage(img_1m);
+    cv::Mat img_0p_;
+    cv::cvtColor(cvMatFromUIImage(img_0p), img_0p_, cv::COLOR_RGBA2BGR);
+    cv::Mat img_1p_;
+    cv::cvtColor(cvMatFromUIImage(img_1p), img_1p_, cv::COLOR_RGBA2BGR);
+    cv::Mat img_0m_th = cvMatFromUIImage(img_0m);
+//    cv::cvtColor(cvMatFromUIImage(img_0m), img_0m_th, cv::COLOR_BGRA2GRAY);
+    cv::Mat img_1m_th = cvMatFromUIImage(img_1m);
+//    cv::cvtColor(cvMatFromUIImage(img_1m), img_1m_th, cv::COLOR_BGRA2GRAY);
     
-    cv::Mat frame_ = cvMatFromUIImage(frame);
+    cv::Mat frame_;
+    cv::cvtColor(cvMatFromUIImage(frame), frame_, cv::COLOR_RGBA2BGR);
     
     try {
-//        //Threshold img_0m
-//        cv::threshold(img_0m_th, img_0m_th, 0, 255, cv::THRESH_OTSU);
-//
-//        // Threshold img_1m
-//        cv::threshold(img_1m_th, img_1m_th, 0, 255, cv::THRESH_OTSU);
+        //Threshold img_0m
+        cv::threshold(img_0m_th, img_0m_th, 0, 255, cv::THRESH_OTSU);
+
+        // Threshold img_1m
+        cv::threshold(img_1m_th, img_1m_th, 0, 255, cv::THRESH_OTSU);
                 
         const mcv::Matcher matcher{
             std::vector<const cv::Mat*>{&img_0m_th, &img_1m_th},
             std::vector<const cv::Mat*>{&img_0p_, &img_1p_}
         };
     
-    
-        mcv::marker::apply_AR(matcher, frame_, false);
+        mcv::marker::apply_AR(matcher, frame_, true);
     } catch (const cv::Exception &e) {
         // TODO report here somehow
     }
-    return UIImageFromCVMat(frame_);
+    
+    cv::Mat iosFrame;
+    cv::cvtColor(frame_, iosFrame, cv::COLOR_BGR2RGB);
+    return UIImageFromCVMat(iosFrame);
 }
 
 

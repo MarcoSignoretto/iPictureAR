@@ -236,15 +236,15 @@ void mcv::marker::apply_AR(const mcv::Matcher& matcher, cv::Mat& camera_frame, b
     }
 
     // It shows debug images with features
-//    if (debug_info) {
-//        be.draw_boundaries(frame_debug);
-//        be.draw_boundaries_corners(frame_debug);
-//
+    if (debug_info) {
+        be.draw_boundaries(camera_frame);
+        be.draw_boundaries_corners(camera_frame);
+
 //        cv::imshow("thresholded", frame_th);
 //        cv::imshow("corners", img_corners);
 //        cv::imshow("live", frame_debug);
-//
-//    }
+
+    }
 }
 
 
