@@ -36,7 +36,7 @@ namespace mcv{
          * for this project the resolution has been chosen to be equal of resolution of the video test
          *
          * */
-        const float MATCH_THRESHOLD = 0.62f;
+        const float MATCH_THRESHOLD = 0.90f;
         /// Constants related to marker orientation detection
         const int WIDTH = 135;
         const int HEIGHT = 55;
