@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include <opencv2/imgcodecs/imgcodecs.hpp>
-#include <opencv2/imgcodecs/legacy/constants_c.h>
+//#include <opencv2/imgcodecs/legacy/constants_c.h>
 #include <opencv2/imgproc.hpp>
 
 #include "boundary_extractor.h"

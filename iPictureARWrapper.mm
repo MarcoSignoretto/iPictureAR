@@ -169,7 +169,7 @@ const cv::Mat cvMatFromUIImage(const UIImage* image){
     }
     
     cv::Mat iosFrame;
-    cv::cvtColor(frame_, iosFrame, cv::COLOR_BGR2RGB);
+    cv::cvtColor(frame_, iosFrame, cv::COLOR_BGR2BGRA);
     return UIImageFromCVMat(iosFrame);
 }
 
